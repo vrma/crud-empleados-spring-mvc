@@ -27,8 +27,9 @@ public class CrudEmpleadosSpringMvcApplication implements CommandLineRunner {
 	
 	private final EmpleadoService empleadoService;
 	private final DepartamentoService departamentoService;
-	private final CorreoService correoService;
-	private final TelefonoService telefonoService;
+	
+	// private final CorreoService correoService;
+	// private final TelefonoService telefonoService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CrudEmpleadosSpringMvcApplication.class, args);
@@ -87,6 +88,32 @@ public class CrudEmpleadosSpringMvcApplication implements CommandLineRunner {
 						Correo.builder().email("emp1@gg.com").build()))
 				.build();
 		
+		Empleado empleado2 = Empleado.builder()
+				.nombre("María")
+				.primerApellido("López")
+				.segundoApellido("Martínez")
+				.genero(Genero.MUJER)
+				.fechaAlta(LocalDate.of(2021, 3, 10))
+				.departamento(departamento2)
+				.salario(new BigDecimal(4000.00))
+				.telefonos(Set.of(Telefono.builder().numero("555555555").build()))
+				.emails(Set.of(Correo.builder().email("emp2@g.com").build()))
+				.build();
+		
+		Empleado empleado3 = Empleado.builder()
+				.nombre("Pedro")
+				.primerApellido("Gómez")
+				.segundoApellido("Sánchez")
+				.genero(Genero.HOMBRE)
+				.fechaAlta(LocalDate.of(2022, 5, 20))
+				.departamento(departamento3)
+				.salario(new BigDecimal(3000.75))
+				.telefonos(Set.of(Telefono.builder().numero("111111111").build(),
+						Telefono.builder().numero("222222222").build()))
+				.emails(Set.of(Correo.builder().email("emp3@g.com").build(),
+						Correo.builder().email("emp3@outlook.com").build()))
+				.build();
+		
 		// Antes de persitir el empleado, para que en las tablas de correos y telefonos
 		// el campo empleado_id no sea nulo, hay que establecer la relación entre 
 		// el empleado y sus correos y teléfonos.
@@ -94,7 +121,15 @@ public class CrudEmpleadosSpringMvcApplication implements CommandLineRunner {
 		empleado1.getTelefonos().forEach(telefono -> telefono.setEmpleado(empleado1));
 		empleado1.getEmails().forEach(correo -> correo.setEmpleado(empleado1));	
 		
+		empleado2.getTelefonos().forEach(telefono -> telefono.setEmpleado(empleado2));
+		empleado2.getEmails().forEach(correo -> correo.setEmpleado(empleado2));	
+		
+		empleado3.getTelefonos().forEach(telefono -> telefono.setEmpleado(empleado3));
+		empleado3.getEmails().forEach(correo -> correo.setEmpleado(empleado3));	
+		
 		empleadoService.saveEmpleado(empleado1);
+		empleadoService.saveEmpleado(empleado2);
+		empleadoService.saveEmpleado(empleado3);
 		
 
 	}
