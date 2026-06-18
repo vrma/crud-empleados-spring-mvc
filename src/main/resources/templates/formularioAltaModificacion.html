@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulario Alta/Modificacion</title>
+</head>
+<body>
+		<h1>Formulario de Alta/Modificación</h1>
+		
+		<fieldset>
+			<legend>Formulario de Alta o Modificación</legend>
+			
+			<form action=""  method="post">
+			<input type="hidden" th:field="*{id}">
+			<div>
+				<label for="nombre">Nombre: </label>
+				<input type="text" id="nombre"   required  th:field="*{nombre}">
+			</div>
+			<div>
+				<label for="primerApellido">Primer Apellido: </label>
+				<input  type="text"  id="primerApellido" name="primerApellido" required="required" th:field="*{primerApellido}">
+			</div>
+			<div>
+				<label for="segundoApellido">Segundo Apellido: </label>
+				<input type="text" id="segundoApellido" name="segundoApellido" th:field="*{segundoApellido}" >
+			</div>
+			<div>
+				<fieldset>
+					<legend>Genero</legend>
+					<label for="hombre">Hombre: </label>
+					<input type="radio"  id="hombre" name="genero" value="HOMBRE">
+					<label for="mujer">Mujer: </label>
+					<input type="radio" id="mujer" name="genero" value="MUJER">
+					<label for="otro">Otro: </label>
+					<input type="radio" id="otro" name="genero" value="OTRO">
+				</fieldset>
+			</div>
+			<div>
+				<label for="salario">Salario: </label>
+				<input type="text" id="salario" name="salario">
+			</div>
+			<div>
+				<label for="fechaAlta">Fecha de Alta: </label>
+				<input type="date" id="fechaAlta" name="fechaAlta">
+			</div>
+			<div>
+				<label for="numerosTelefono">Telefonos: </label>
+				<input type="text" id="numerosTelefono" name="numerosTelefono" placeholder="Uno o varios separados por ;">
+			</div>
+			<div>
+				<label for="direccionesCorreo">Correos: </label>
+				<input type="text" id="direccionesCorreo" name="direccionesCorreo" placeholder="Uno o varios separados por ;">
+			</div>
+			<div>
+				<label for="departamentos">Departamento: </label>
+				<select id="departamentos" name="departamento">
+						<option></option>
+						<option th:each="dpto : ${departamentos}" th:value="${dpto.id}" th:text="${dpto.nombre}"></option>
+				</select>
+			</div>
+			
+			
+			</form>
+			
+		</fieldset>
+</body>
+</html>
