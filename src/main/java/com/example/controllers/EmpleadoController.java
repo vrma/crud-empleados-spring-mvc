@@ -1,9 +1,14 @@
 package com.example.controllers;
 
+import java.util.logging.Logger;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.entities.Empleado;
 import com.example.services.DepartamentoService;
@@ -15,6 +20,8 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/empleados")
 @RequiredArgsConstructor
 public class EmpleadoController {
+	
+	private static final Logger LOG = Logger.getLogger("EmpleadoController");
 	
 	private final EmpleadoService empleadoService;
 	private final DepartamentoService departamentoService;
@@ -44,5 +51,23 @@ public class EmpleadoController {
 				new Empleado());
 		
 		return "formularioAltaModificacion";
+	}
+	
+	// Método para recibir los datos del formulario de creación de empleado
+	@PostMapping("/persistir")
+	public String procesarFormularioAltaModificacion(@ModelAttribute Empleado empleado, 
+			@RequestParam String numerosTelefono,
+			@RequestParam String direccionesCorreo) {
+		
+		LOG.info("Objeto empleado recibido ");
+		LOG.info(empleado.toString());
+		LOG.info("Numeros de telefono recibidos: " + numerosTelefono);
+		LOG.info("Direcciones de correo recibidas: " + direccionesCorreo);
+		
+		// Se recibe un objeto Empleado con los datos del formulario
+		// Se envía a la capa de servicios para que lo guarde en la BD
+		// empleadoService.saveEmpleado(empleado);
+		
+		return "redirect:/empleados/listar"; // Redirige a la lista de empleados
 	}
 }

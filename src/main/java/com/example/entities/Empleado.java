@@ -36,7 +36,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = {"departamento", "telefonos", "emails"})
+@ToString(exclude = {"telefonos", "emails"})
 @Builder
 public class Empleado implements Serializable {
 
