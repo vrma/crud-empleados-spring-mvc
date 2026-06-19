@@ -26,17 +26,21 @@
 			</div>
 			<div>
 				<label for="segundoApellido">Segundo Apellido: </label>
-				<input type="text" id="segundoApellido" name="segundoApellido" th:field="*{segundoApellido}">
+				<input type="text" id="segundoApellido" name="segundoApellido" 
+						th:field="*{segundoApellido}">
 			</div>
 			<div>
 				<fieldset>
 					<legend>Genero</legend>
 					<label for="hombre">Hombre: </label>
-					<input type="radio" id="hombre" name="genero" value="HOMBRE" th:field="*{genero}">
+					<input type="radio" id="hombre" name="genero" value="HOMBRE" 
+								th:field="*{genero}">
 					<label for="mujer">Mujer: </label>
-					<input type="radio" id="mujer" name="genero" value="MUJER" th:field="*{genero}">
+					<input type="radio" id="mujer" name="genero" value="MUJER" 
+								th:field="*{genero}">
 					<label for="otro">Otro: </label>
-					<input type="radio" id="otro" name="genero" value="OTRO" th:field="*{genero}">
+					<input type="radio" id="otro" name="genero" value="OTRO" 
+								th:field="*{genero}">
 				</fieldset>
 			</div>
 			<div>
@@ -59,9 +63,11 @@
 			</div>
 			<div>
 				<label for="departamentos">Departamento: </label>
-				<select id="departamentos" name="departamento">
+				<select id="departamentos" th:field="*{departamento}">
 					<option value=""></option>
-					<option th:each="dpto : ${departamentos}" th:value="${dpto.id}" th:text="${dpto.nombre}"></option>
+					<option th:each="dpto : ${departamentos}" 
+							th:value="${dpto.id}" 
+							th:text="${dpto.nombre}"></option>
 				</select>
 			</div>
 
