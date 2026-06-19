@@ -1,5 +1,9 @@
 package com.example.controllers;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import org.springframework.stereotype.Controller;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.entities.Empleado;
+import com.example.entities.Telefono;
 import com.example.services.DepartamentoService;
 import com.example.services.EmpleadoService;
 
@@ -64,9 +69,28 @@ public class EmpleadoController {
 		LOG.info("Numeros de telefono recibidos: " + numerosTelefono);
 		LOG.info("Direcciones de correo recibidas: " + direccionesCorreo);
 		
+		
+		// Hay que procesar los datos de los telefonos y correos, que vienen en un String
+		// separados por comas, y convertirlos en listas de objetos Telefono y Correo, 
+		// para luego agregarlos al objeto Empleado antes de persistirlo en la BD.
+		
+		Set<Telefono> telefonos = new HashSet<Telefono>();
+		
+		if (!numerosTelefono.isEmpty() && !numerosTelefono.isBlank()) {
+			
+			String[] arrayNumerosTelefono = numerosTelefono.split(";");
+			List<String> listadoNumeros = Arrays.asList(arrayNumerosTelefono);
+			
+			listadoNumeros.forEach(numero -> {
+				telefonos.add(Telefono.builder().numero(numero).empleado(empleado).build());
+			});
+			
+			empleado.setTelefonos(telefonos);
+		}
+		
 		// Se recibe un objeto Empleado con los datos del formulario
 		// Se envía a la capa de servicios para que lo guarde en la BD
-		// empleadoService.saveEmpleado(empleado);
+		empleadoService.saveEmpleado(empleado);
 		
 		return "redirect:/empleados/listar"; // Redirige a la lista de empleados
 	}
