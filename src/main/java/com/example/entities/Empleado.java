@@ -52,6 +52,9 @@ public class Empleado implements Serializable {
 	@Size(min = 4, max = 30, message = "El nombre tiene que estar entre 4 y 30 caracteres")
     private String nombre;
 	
+	@NotNull(message = "El primer apellido no puede estar vacio")
+	@NotBlank(message = "El primer apellido no puede contener espacios en blanco, solamente")
+	@Size(min = 4, max = 30, message = "El primer apellido tiene que estar entre 4 y 30 caracteres")
     private String primerApellido;
     private String segundoApellido;
     

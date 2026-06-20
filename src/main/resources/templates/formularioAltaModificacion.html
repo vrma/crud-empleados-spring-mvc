@@ -32,6 +32,9 @@
 				<label for="primerApellido">Primer Apellido: </label>
 				<input type="text" id="primerApellido" name="primerApellido" required="required"
 					th:field="*{primerApellido}">
+					<p th:if="${#fields.hasErrors('primerApellido')}" 
+                   th:errors="*{primerApellido}" 
+                   class="error">Primer Apellido Incorrecto</p>
 			</div>
 			<div>
 				<label for="segundoApellido">Segundo Apellido: </label>
