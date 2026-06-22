@@ -8,7 +8,7 @@
 	<style>
 		.error {
 			color: red;
-			font-size: 200%;
+			font-weight: bold;
 		}
 	</style>
 </head>
@@ -25,22 +25,22 @@
 				<label for="nombre">Nombre: </label>
 				<input type="text" id="nombre" required th:field="*{nombre}">
 				<p th:if="${#fields.hasErrors('nombre')}" 
-				   th:errors="*{nombre}" 
-				   class="error">Nombre Incorrecto</p>
+				   	th:errors="*{nombre}" 
+				   		class="error">Nombre Incorrecto</p>
 			</div>
 			<div>
 				<label for="primerApellido">Primer Apellido: </label>
 				<input type="text" id="primerApellido" name="primerApellido" required="required"
 					th:field="*{primerApellido}">
 					<p th:if="${#fields.hasErrors('primerApellido')}" 
-                   th:errors="*{primerApellido}" 
-                   class="error">Primer Apellido Incorrecto</p>
+                   		th:errors="*{primerApellido}" 
+                   			class="error">Primer Apellido Incorrecto</p>
 			</div>
 			<div>
 				<label for="segundoApellido">Segundo Apellido: </label>
 				<input type="text" id="segundoApellido" name="segundoApellido" 
 						th:field="*{segundoApellido}">
-			</div>
+				</div>
 			<div>
 				<fieldset>
 					<legend>Genero</legend>
