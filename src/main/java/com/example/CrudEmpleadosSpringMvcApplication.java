@@ -89,7 +89,7 @@ public class CrudEmpleadosSpringMvcApplication implements CommandLineRunner {
 				.build();
 		
 		Empleado empleado2 = Empleado.builder()
-				.nombre("María")
+				.nombre("Maria")
 				.primerApellido("López")
 				.segundoApellido("Martínez")
 				.genero(Genero.MUJER)

@@ -40,6 +40,9 @@
 				<label for="segundoApellido">Segundo Apellido: </label>
 				<input type="text" id="segundoApellido" name="segundoApellido" 
 						th:field="*{segundoApellido}">
+				<p th:if="${#fields.hasErrors('segundoApellido')}" 
+				   th:errors="*{segundoApellido}"
+				   class="error">Segundo Apellido Incorrecto</p>
 				</div>
 			<div>
 				<fieldset>
@@ -62,6 +65,9 @@
 			<div>
 				<label for="fechaAlta">Fecha de Alta: </label>
 				<input type="date" id="fechaAlta" name="fechaAlta" th:field="*{fechaAlta}">
+				<p th:if="${#fields.hasErrors('fechaAlta')}" 
+				   th:errors="*{fechaAlta}"
+				   class="error">Fecha Incorrecta</p>
 			</div>
 			<div>
 				<label for="numerosTelefono">Telefonos: </label>
