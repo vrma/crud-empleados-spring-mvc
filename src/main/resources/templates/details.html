@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 th:text="'Detalles del empleado: ' 
+                + ${empleado.nombre} + ' ' 
+                + ${empleado.primerApellido} + ' '
+                + ${empleado.segundoApellido}"></h1>
+
+    <!-- Mostrar el nombre del Dpto donde trabaja el empleado             -->
+    <h2 th:text="'Departamento: ' + ${empleado.departamento.nombre}"></h2>     
+    
+    <!-- Telefonos del empleado -->
+    <div th:if="${empleado.telefonos.size() > 0}">
+        <h2>Telefonos: </h2>
+        <ul>
+            <li th:each="telefono : ${empleado.telefonos}" 
+                th:text="${telefono.numero}"></li>
+        </ul>
+    </div>
+
+    <!-- Correos del empleado -->
+    <div th:if="${empleado.emails.size() > 0}">
+        <h2>Correos: </h2>
+        <ul>
+            <li th:each="email : ${empleado.emails}"
+                th:text="${email.email}"></li>
+        </ul>
+
+    </div> 
+
+    <!-- Foto del empleado -->
+    <div th:if="${empleado.foto != null}">
+        <h2>Foto: </h2>
+        <img th:src="@{/imagenes/}+${empleado.foto}" alt="Foto del Empleado">
+    </div> 
+</body>
+</html>

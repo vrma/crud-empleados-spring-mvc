@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -151,5 +152,17 @@ public class EmpleadoController {
 		empleadoService.saveEmpleado(empleado);
 		
 		return "redirect:/empleados/listar"; // Redirige a la lista de empleados
+	}
+
+	// Metodo que muestra los detalles de un empleado cuyo id se recibe como parametro
+	@GetMapping("/details/{id}")
+	public String mostrarDetalles(Model model, 
+		      @PathVariable(name = "id", required = true) int empleado_id) {
+		
+		// Recuperar el empleado cuyo id se recibe como parametro
+		model.addAttribute("empleado", 
+		          empleadoService.getEmpleadoById(empleado_id));	
+				
+		return "details";
 	}
 }
