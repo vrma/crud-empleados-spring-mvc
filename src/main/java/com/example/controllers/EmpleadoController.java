@@ -1,9 +1,13 @@
 package com.example.controllers;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.OpenOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import org.springframework.stereotype.Controller;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.entities.Correo;
 import com.example.entities.Empleado;
@@ -73,7 +78,8 @@ public class EmpleadoController {
 			BindingResult result,
 			@RequestParam String numerosTelefono,
 			@RequestParam String direccionesCorreo,
-			Model model) {
+			Model model,
+			@RequestParam(name = "file", required = false) MultipartFile file) {
 		
 		// Comprobar si hay errores en la informacion procedente del formulario
 		if (result.hasErrors()) {
@@ -82,6 +88,27 @@ public class EmpleadoController {
 					departamentoService.getAllDepartamentos());
 			
 			return "formularioAltaModificacion";
+		}
+
+		// Preguntar si me han enviado foto para el empleado, y si es asi,
+		// guardar el nombre de la foto en la propiedad, atributo, o variable miembro de la clase, foto,
+		// y guardar el contenido de la foto como un archivo en el sistema de archivos (files system) del
+		// servidor
+
+		if ( file != null && !file.isEmpty()) {
+
+			Path rutaRelativa = Paths.get("src/main/resources/static/imagenes");
+			String rutaAbsoluta = rutaRelativa.toFile().getAbsolutePath();
+			Path rutaCompleta = Paths.get(rutaAbsoluta + "/" + file.getOriginalFilename());
+
+			try {
+				byte[] bytesFotoRecibida = file.getBytes();
+				Files.write(rutaCompleta, bytesFotoRecibida);
+				empleado.setFoto(file.getOriginalFilename());
+			} catch (IOException e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
 		}
 		
 		LOG.info("Objeto empleado recibido ");
