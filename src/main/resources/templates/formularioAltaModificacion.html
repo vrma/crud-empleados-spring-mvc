@@ -73,12 +73,14 @@
 			<div>
 				<label for="numerosTelefono">Telefonos: </label>
 				<input type="text" id="numerosTelefono" name="numerosTelefono"
-					placeholder="Uno o varios separados por ;" >
+					placeholder="Uno o varios separados por ;" 
+					th:value="${numerosTelefono}">
 			</div>
 			<div>
 				<label for="direccionesCorreo">Correos: </label>
 				<input type="text" id="direccionesCorreo" name="direccionesCorreo"
-					placeholder="Uno o varios separados por ;" >
+					placeholder="Uno o varios separados por ;" 
+					th:value="${direccionesCorreos}">
 			</div>
 			<div>
 				<label for="departamentos">Departamento: </label>
@@ -92,7 +94,12 @@
 
 			<div>
 				<label for="file">Foto del Empleado: </label>
-				<input type="file" id="file" name="file" title="Seleccion de la imagen del empleado">
+				<input type="file" id="file" name="file" 
+				         title="Seleccion de la imagen del empleado">
+				<div th:if="${empleado.id != 0 and empleado.foto != null}">
+					<h4>Foto actual del empleado: </h4>
+					<img th:src="@{/imagenes/}+${empleado.foto}" alt="Foto del Empleado">
+				</div>		 
 			</div>
 
 			<div>
